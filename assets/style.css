@@ -241,6 +241,11 @@ p {
   padding-block: 28px 72px;
 }
 
+.hero h1 {
+  font-size: clamp(2.3rem, 4.5vw, 3.6rem);
+  line-height: 1.04;
+}
+
 .hero-lead {
   font-size: 1.1875rem;
   max-width: 30em;

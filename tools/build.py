@@ -618,7 +618,7 @@ def build_index(plans: dict[int, Plan]) -> str:
     body = f"""<main>
 <div class="wrap hero">
 <div>
-<h1>Десять квартир в старом Петербурге</h1>
+<h1>Апартаменты посуточно в Санкт-Петербурге</h1>
 <p class="hero-lead">Сдаём свои квартиры посуточно, без посредников. Выберите даты, и сайт покажет цену за весь срок.</p>
 <form class="search" data-search novalidate>
 <div class="field"><label for="s-in">Заезд</label><input id="s-in" name="in" type="date" required></div>
@@ -696,8 +696,8 @@ def build_index(plans: dict[int, Plan]) -> str:
 </main>"""
     return page(
         root="",
-        title=f'{SITE["brand"]} — квартиры посуточно в центре Санкт-Петербурга',
-        description=f'Десять квартир посуточно в историческом центре Петербурга от {rub(min_price)} за ночь. Бронирование напрямую у собственника, заселение по коду в любое время.',
+        title=f'Апартаменты посуточно в Санкт-Петербурге — {SITE["brand"]}',
+        description=f'Десять апартаментов посуточно в историческом центре Санкт-Петербурга от {rub(min_price)} за ночь. Бронирование напрямую у собственника, заселение по коду в любое время.',
         body=body,
         current="",
     )
