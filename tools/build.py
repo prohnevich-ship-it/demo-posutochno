@@ -9,6 +9,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import html
 import json
 import math
@@ -21,6 +22,12 @@ SITE = json.loads((ROOT / "data" / "site.json").read_text(encoding="utf-8"))
 FLATS = json.loads((ROOT / "data" / "apartments.json").read_text(encoding="utf-8"))
 
 NBSP = " "
+
+
+def asset(name: str) -> str:
+    """Адрес файла оформления с меткой версии: после правок браузер не возьмёт старую копию из кэша."""
+    digest = hashlib.sha256((ROOT / "assets" / name).read_bytes()).hexdigest()[:8]
+    return f"assets/{name}?v={digest}"
 
 
 def esc(text: object) -> str:
@@ -510,7 +517,7 @@ def page(*, root: str, title: str, description: str, body: str, current: str = "
 <meta name="theme-color" content="#17283a">
 <link rel="icon" href="{root}assets/favicon.svg" type="image/svg+xml">
 {FONTS}
-<link rel="stylesheet" href="{root}assets/style.css">
+<link rel="stylesheet" href="{root}{asset("style.css")}">
 {extra_head}</head>
 <body>
 <p class="demo-note">Демонстрационный сайт: квартиры, цены и отзывы вымышлены. <a href="{root}index.html#owners">Хочу такой сайт</a></p>
@@ -529,7 +536,7 @@ def page(*, root: str, title: str, description: str, body: str, current: str = "
 <p>Здесь будут телефон, мессенджеры и реквизиты владельца квартир.</p>
 </div>
 </footer>
-<script src="{root}assets/app.js" defer></script>
+<script src="{root}{asset("app.js")}" defer></script>
 </body>
 </html>
 """
