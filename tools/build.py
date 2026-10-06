@@ -497,7 +497,7 @@ LOGO = (
 )
 
 
-def page(*, root: str, title: str, description: str, body: str, current: str = "", extra_head: str = "") -> str:
+def page(*, root: str, title: str, description: str, body: str, current: str = "", extra_head: str = "", chat_flat: str = "") -> str:
     def nav(href: str, text: str, key: str) -> str:
         mark = ' aria-current="page"' if key == current else ""
         return f'<a href="{root}{href}"{mark}>{text}</a>'
@@ -537,6 +537,7 @@ def page(*, root: str, title: str, description: str, body: str, current: str = "
 </div>
 </footer>
 <script src="{root}{asset("app.js")}" defer></script>
+<script src="{root}{asset("chat.js")}" defer data-root="{root}" data-data="{asset("flats.json")}" data-flat="{chat_flat}"></script>
 </body>
 </html>
 """
@@ -588,6 +589,7 @@ OWNER_POINTS = [
     ("Страница на каждую квартиру", "С планом или фотографиями, ценой, описанием и тем, что рядом. Такие страницы находят в поиске по запросам вроде «квартира у Мариинского театра посуточно»."),
     ("Онлайн-бронирование", "В демо расчёт цены условный. На рабочем сайте подключается модуль бронирования из вашей системы управления: гость видит свободные даты и вносит предоплату."),
     ("Версия для телефона", "Сайт удобно листать и бронировать со смартфона."),
+    ("Помощник в чате", "Кнопка «Спросить помощника» в углу экрана. В демо помощник отвечает по правилам. На рабочем сайте к нему подключается нейросеть и календарь броней: она подбирает свободные квартиры и отвечает на вопросы гостей круглосуточно."),
     ("Ваши фотографии", "В демо вместо фотографий стоят планы квартир. На вашем сайте будут ваши снимки, обработанные по свету и цвету."),
 ]
 
@@ -819,6 +821,7 @@ def build_flat(flat: dict, plan: Plan) -> str:
         body=body,
         current="flats",
         extra_head=f'<script type="application/ld+json">{json_ld}</script>\n',
+        chat_flat=flat["slug"],
     )
 
 
@@ -892,8 +895,32 @@ FAVICON = (
 )
 
 
+CHAT_FIELDS = (
+    "n", "slug", "name", "type", "street", "district", "metro", "metro_min", "guests", "beds",
+    "floor", "price", "weekend", "min_nights", "lead", "amenities", "nearby", "pets",
+)
+
+
+def write_chat_data(plans: dict[int, Plan]) -> None:
+    """Данные, по которым отвечает помощник в чате: только то, что уже есть на страницах."""
+    flats = []
+    for flat in FLATS:
+        item = {key: flat[key] for key in CHAT_FIELDS}
+        item["area"] = plans[flat["n"]].area()
+        item["keywords"] = flat["chat_keywords"]
+        flats.append(item)
+    data = {
+        "site": {"checkin": SITE["checkin"], "checkout": SITE["checkout"], "deposit": SITE["deposit"]},
+        "flats": flats,
+    }
+    (ROOT / "assets" / "flats.json").write_text(
+        json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8"
+    )
+
+
 def main() -> None:
     plans = {f["n"]: Plan(f["layout"], f["mirror"], f["scale"]) for f in FLATS}
+    write_chat_data(plans)
     (ROOT / "index.html").write_text(build_index(plans), encoding="utf-8")
     (ROOT / "pravila.html").write_text(build_rules(), encoding="utf-8")
     (ROOT / "404.html").write_text(build_404(), encoding="utf-8")
