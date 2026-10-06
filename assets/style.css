@@ -241,6 +241,27 @@ p {
   padding-block: 28px 72px;
 }
 
+/* Панорама города под первым экраном: стоит на границе неба и белой секции */
+.skyline {
+  margin-top: -34px;
+  line-height: 0;
+  pointer-events: none;
+}
+
+.skyline svg {
+  width: 100%;
+  height: max(10.92vw, 124px);
+}
+
+/* Цвета подобраны как смесь неба и воды, чтобы силуэты не темнели в местах наложения */
+.skyline-near {
+  fill: #c3d0da;
+}
+
+.skyline-far {
+  fill: #d6dfe6;
+}
+
 .hero h1 {
   font-size: clamp(2.3rem, 4.5vw, 3.6rem);
   line-height: 1.04;

@@ -14,6 +14,8 @@ import json
 import math
 from pathlib import Path
 
+from skyline import skyline_svg
+
 ROOT = Path(__file__).resolve().parent.parent
 SITE = json.loads((ROOT / "data" / "site.json").read_text(encoding="utf-8"))
 FLATS = json.loads((ROOT / "data" / "apartments.json").read_text(encoding="utf-8"))
@@ -634,6 +636,7 @@ def build_index(plans: dict[int, Plan]) -> str:
 <figcaption>Номера на схеме совпадают с номерами квартир в списке.</figcaption>
 </figure>
 </div>
+<div class="skyline">{skyline_svg()}</div>
 
 <section class="section section-paper" id="kvartiry" aria-labelledby="h-flats">
 <div class="wrap">
