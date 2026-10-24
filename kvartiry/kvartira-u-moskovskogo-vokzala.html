@@ -13,7 +13,7 @@
 <meta name="theme-color" content="#17283a">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&amp;family=Golos+Text:wght@400;500;600&amp;display=swap">
-<link rel="stylesheet" href="../assets/style.css?v=439643cc">
+<link rel="stylesheet" href="../assets/style.css?v=60a13c42">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Apartment", "name": "Квартира у Московского вокзала", "description": "Пять минут пешком от «Сапсана»: удобно, если вы приезжаете поздно или уезжаете рано.", "floorSize": {"@type": "QuantitativeValue", "value": 37, "unitCode": "MTK"}, "occupancy": {"@type": "QuantitativeValue", "maxValue": 3}, "address": {"@type": "PostalAddress", "addressLocality": "Санкт-Петербург", "streetAddress": "улица Восстания", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 59.934, "longitude": 30.36}}</script>
 </head>
 <body>
@@ -68,7 +68,7 @@
 </div>
 <aside class="booking" aria-label="Бронирование">
 <p class="booking-price">от 5 000 ₽<small>за ночь в будни, 6 300 ₽ в выходные</small></p>
-<form class="booking-form" data-booking data-name="Квартира у Московского вокзала" data-price="5000" data-weekend="6300" data-min="1" data-deposit="3000" novalidate>
+<form class="booking-form" id="bron" data-booking data-name="Квартира у Московского вокзала" data-price="5000" data-weekend="6300" data-min="1" data-deposit="3000" novalidate>
 <div class="field"><label for="b-in">Заезд</label><input id="b-in" name="in" type="date" required></div>
 <div class="field"><label for="b-out">Выезд</label><input id="b-out" name="out" type="date" required></div>
 <div class="field field-wide"><label for="b-g">Гости</label><select id="b-g" name="g"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select></div>
@@ -93,7 +93,12 @@
 <p>Здесь будут телефон, мессенджеры и реквизиты владельца квартир.</p>
 </div>
 </footer>
-<script src="../assets/app.js?v=292fc74a" defer></script>
+<nav class="bottom-bar" aria-label="Быстрые действия">
+<a href="../index.html#kvartiry"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h14V10"/></svg>Квартиры</a>
+<a class="bottom-bar-main" href="#bron"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Даты</a>
+<button type="button" data-chat-open><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.5-4A8 8 0 1 1 9 19.5z"/></svg>Помощник</button>
+</nav>
+<script src="../assets/app.js?v=4893074e" defer></script>
 <script src="../assets/chat.js?v=47f92ba4" defer data-root="../" data-data="assets/flats.json?v=7e2017c2" data-flat="kvartira-u-moskovskogo-vokzala"></script>
 </body>
 </html>

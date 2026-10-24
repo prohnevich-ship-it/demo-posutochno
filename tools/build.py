@@ -497,11 +497,12 @@ LOGO = (
 )
 
 
-def page(*, root: str, title: str, description: str, body: str, current: str = "", extra_head: str = "", chat_flat: str = "") -> str:
+def page(*, root: str, title: str, description: str, body: str, current: str = "", extra_head: str = "", chat_flat: str = "", dates_href: str = "") -> str:
     def nav(href: str, text: str, key: str) -> str:
         mark = ' aria-current="page"' if key == current else ""
         return f'<a href="{root}{href}"{mark}>{text}</a>'
 
+    dates = dates_href or f"{root}index.html#poisk"
     return f"""<!doctype html>
 <html lang="ru">
 <head>
@@ -536,6 +537,11 @@ def page(*, root: str, title: str, description: str, body: str, current: str = "
 <p>Здесь будут телефон, мессенджеры и реквизиты владельца квартир.</p>
 </div>
 </footer>
+<nav class="bottom-bar" aria-label="Быстрые действия">
+<a href="{root}index.html#kvartiry"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h14V10"/></svg>Квартиры</a>
+<a class="bottom-bar-main" href="{dates}"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Даты</a>
+<button type="button" data-chat-open><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.5-4A8 8 0 1 1 9 19.5z"/></svg>Помощник</button>
+</nav>
 <script src="{root}{asset("app.js")}" defer></script>
 <script src="{root}{asset("chat.js")}" defer data-root="{root}" data-data="{asset("flats.json")}" data-flat="{chat_flat}"></script>
 </body>
@@ -558,7 +564,7 @@ def where(flat: dict) -> str:
 # --------------------------------------------------------------------------
 
 REASONS = [
-    ("Скидка тем, кто возвращается", "Гостям, которые уже жили у нас, даём 10% на следующую бронь на сайте."),
+    ("Помощник на связи круглосуточно", "Подберёт квартиру под даты и число гостей и ответит на вопросы о заселении в любое время."),
     ("Заселение без встречи", "Код от двери приходит в день заезда. Можно приехать ночью и никого не ждать."),
     ("Документы для командировок", "Заключаем договор, выставляем счёт и отдаём чек и акт для бухгалтерии."),
 ]
@@ -571,9 +577,9 @@ STEPS = [
 ]
 
 REVIEWS = [
-    ("Приехали в час ночи с поезда, код сработал с первого раза. В квартире было тепло и чисто.", "Марина, жила в студии на Рубинштейна"),
-    ("Брали квартиру на две семьи. Два санузла и большой стол спасли наш отпуск с детьми.", "Алексей, жил у Австрийской площади"),
-    ("Третья командировка подряд останавливаюсь здесь. Документы для бухгалтерии присылают в тот же день.", "Ирина, жила у Московского вокзала"),
+    ("Приехали в час ночи с поезда, код сработал с первого раза. В квартире было тепло и чисто.", "Марина, жила в студии на Рубинштейна", "Авито"),
+    ("Брали квартиру на две семьи. Два санузла и большой стол спасли наш отпуск с детьми.", "Алексей, жил у Австрийской площади", "Суточно"),
+    ("Третья командировка подряд останавливаюсь здесь. Документы для бухгалтерии присылают в тот же день.", "Ирина, жила у Московского вокзала", "Отзыв на сайте"),
 ]
 
 FAQ = [
@@ -583,6 +589,12 @@ FAQ = [
     ("Как отменить бронь?", "Бесплатно за трое суток до заезда и раньше: предоплата вернётся полностью. При более поздней отмене предоплата за первую ночь не возвращается."),
     ("Можно ли с животными?", "В четырёх квартирах можно с небольшими собаками и кошками. Напишите нам перед бронированием, и мы подскажем, в каких."),
     ("Вы даёте отчётные документы?", "Да. Работаем по договору, выставляем счёт, отдаём чек и акт."),
+]
+
+OFFERS = [
+    ("−10%", "Тем, кто возвращается", "Гостям, которые уже жили у нас, даём скидку на следующую бронь на сайте."),
+    ("0 ₽", "Ранний заезд и поздний выезд", "Если квартира свободна, заселим раньше или дадим выехать позже без доплаты."),
+    ("3 суток", "Бесплатная отмена", "Отмените бронь за трое суток до заезда, и предоплата вернётся полностью."),
 ]
 
 OWNER_POINTS = [
@@ -607,6 +619,32 @@ def card(flat: dict, plan: Plan) -> str:
 </li>"""
 
 
+def stats_html() -> str:
+    items = [
+        (str(len(FLATS)), "квартир в историческом центре"),
+        (f"от{NBSP}{rub(min(f['price'] for f in FLATS))}", "за ночь"),
+        (f"до{NBSP}{max(f['metro_min'] for f in FLATS)}{NBSP}мин", "пешком до метро"),
+        ("24/7", "заселение по коду"),
+    ]
+    return "".join(f"<li><strong>{v}</strong><span>{esc(t)}</span></li>" for v, t in items)
+
+
+def occasion_links(flats: list[dict]) -> str:
+    return "".join(f'<li><a href="kvartiry/{f["slug"]}.html">{esc(f["name"])}</a></li>' for f in flats)
+
+
+def occasions_html() -> str:
+    groups = [
+        ("Командировка", "Рабочий стол, быстрый Wi-Fi и документы для бухгалтерии.", [f for f in FLATS if "Рабочий стол" in f["amenities"]]),
+        ("Вдвоём", "Уютные студии для пары или одного гостя.", [f for f in FLATS if f["type"] == "Студия"]),
+        ("С семьёй или компанией", "Две спальни, место для пятерых и больше.", [f for f in FLATS if f["guests"] >= 5]),
+        ("С питомцем", "Можно с небольшими собаками и кошками.", [f for f in FLATS if f["pets"]]),
+    ]
+    return "".join(
+        f"<li><h3>{esc(t)}</h3><p>{esc(d)}</p><ul>{occasion_links(fl)}</ul></li>" for t, d, fl in groups if fl
+    )
+
+
 def developer_contact() -> str:
     dev = SITE.get("developer", {})
     telegram = (dev.get("telegram") or "").lstrip("@")
@@ -622,7 +660,12 @@ def build_index(plans: dict[int, Plan]) -> str:
     cards = "\n".join(card(f, plans[f["n"]]) for f in FLATS)
     reasons = "".join(f"<li><h3>{esc(t)}</h3><p>{esc(d)}</p></li>" for t, d in REASONS)
     steps = "".join(f"<li><h3>{esc(t)}</h3><p>{esc(d)}</p></li>" for t, d in STEPS)
-    reviews = "".join(f"<li><blockquote><p>«{esc(q)}»</p></blockquote><footer>{esc(a)}</footer></li>" for q, a in REVIEWS)
+    reviews = "".join(
+        f'<li><p class="review-top"><span class="stars" aria-label="Оценка 5 из 5">★★★★★</span><span class="tag">{esc(src)}</span></p>'
+        f"<blockquote><p>«{esc(q)}»</p></blockquote><footer>{esc(a)}</footer></li>"
+        for q, a, src in REVIEWS
+    )
+    offers = "".join(f'<li><span class="offer-big">{esc(b)}</span><h3>{esc(t)}</h3><p>{esc(d)}</p></li>' for b, t, d in OFFERS)
     faq = "".join(f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>" for q, a in FAQ)
     owners = "".join(f"<li><strong>{esc(t)}</strong>{esc(d)}</li>" for t, d in OWNER_POINTS)
 
@@ -631,7 +674,7 @@ def build_index(plans: dict[int, Plan]) -> str:
 <div>
 <h1>Апартаменты посуточно в Санкт-Петербурге</h1>
 <p class="hero-lead">Сдаём свои квартиры посуточно, без посредников. Выберите даты, и сайт покажет цену за весь срок.</p>
-<form class="search" data-search novalidate>
+<form class="search" id="poisk" data-search novalidate>
 <div class="field"><label for="s-in">Заезд</label><input id="s-in" name="in" type="date" required></div>
 <div class="field"><label for="s-out">Выезд</label><input id="s-out" name="out" type="date" required></div>
 <div class="field field-guests"><label for="s-g">Гости</label><select id="s-g" name="g">{guest_options(max_guests)}</select></div>
@@ -646,6 +689,9 @@ def build_index(plans: dict[int, Plan]) -> str:
 </figure>
 </div>
 <div class="skyline">{skyline_svg()}</div>
+<section class="stats" aria-label="Коротко о нас">
+<ul class="wrap stats-list">{stats_html()}</ul>
+</section>
 
 <section class="section section-paper" id="kvartiry" aria-labelledby="h-flats">
 <div class="wrap">
@@ -661,6 +707,21 @@ def build_index(plans: dict[int, Plan]) -> str:
 <h3>На эти даты ничего не подошло</h3>
 <p>Часть квартир сдаётся от двух ночей. Добавьте ночь или уменьшите число гостей.</p>
 </div>
+</div>
+</section>
+
+<section class="section" aria-labelledby="h-occasions">
+<div class="wrap">
+<div class="section-head"><h2 id="h-occasions">Для какой поездки</h2><p class="section-note">Подобрали квартиры под частые поводы.</p></div>
+<ul class="occasions">{occasions_html()}</ul>
+</div>
+</section>
+
+<section class="section section-paper" aria-labelledby="h-offers">
+<div class="wrap">
+<div class="section-head"><h2 id="h-offers">Выгоды бронирования на сайте</h2><p class="section-note">Без комиссии площадок: бронируете напрямую у собственника.</p></div>
+<ul class="offers">{offers}</ul>
+<p class="offers-cta"><a class="button" href="#poisk">Проверить свободные даты</a></p>
 </div>
 </section>
 
@@ -692,6 +753,14 @@ def build_index(plans: dict[int, Plan]) -> str:
 <div class="wrap">
 <div class="section-head"><h2 id="h-faq">Частые вопросы</h2><p class="section-note"><a href="pravila.html">Все правила проживания</a></p></div>
 <div class="faq">{faq}</div>
+</div>
+</section>
+
+<section class="section contact-cta" aria-labelledby="h-contact">
+<div class="wrap contact-inner">
+<h2 id="h-contact">Остались вопросы? Ответим за пару минут</h2>
+<p>Помощник подберёт квартиру под ваши даты и расскажет про заселение. На рабочем сайте здесь же — телефон, WhatsApp, Telegram и MAX владельца.</p>
+<p><button class="button" type="button" data-chat-open>Спросить помощника</button></p>
 </div>
 </section>
 
@@ -795,7 +864,7 @@ def build_flat(flat: dict, plan: Plan) -> str:
 </div>
 <aside class="booking" aria-label="Бронирование">
 <p class="booking-price">от{NBSP}{rub(flat["price"])}<small>за ночь в будни, {rub(flat["weekend"])} в выходные</small></p>
-<form class="booking-form" data-booking data-name="{esc(flat["name"])}" data-price="{flat["price"]}" data-weekend="{flat["weekend"]}" data-min="{flat["min_nights"]}" data-deposit="{SITE["deposit"]}" novalidate>
+<form class="booking-form" id="bron" data-booking data-name="{esc(flat["name"])}" data-price="{flat["price"]}" data-weekend="{flat["weekend"]}" data-min="{flat["min_nights"]}" data-deposit="{SITE["deposit"]}" novalidate>
 <div class="field"><label for="b-in">Заезд</label><input id="b-in" name="in" type="date" required></div>
 <div class="field"><label for="b-out">Выезд</label><input id="b-out" name="out" type="date" required></div>
 <div class="field field-wide"><label for="b-g">Гости</label><select id="b-g" name="g">{guest_options(flat["guests"], min(2, flat["guests"]))}</select></div>
@@ -822,6 +891,7 @@ def build_flat(flat: dict, plan: Plan) -> str:
         current="flats",
         extra_head=f'<script type="application/ld+json">{json_ld}</script>\n',
         chat_flat=flat["slug"],
+        dates_href="#bron",
     )
 
 

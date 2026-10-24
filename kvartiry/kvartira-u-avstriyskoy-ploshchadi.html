@@ -13,7 +13,7 @@
 <meta name="theme-color" content="#17283a">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&amp;family=Golos+Text:wght@400;500;600&amp;display=swap">
-<link rel="stylesheet" href="../assets/style.css?v=439643cc">
+<link rel="stylesheet" href="../assets/style.css?v=60a13c42">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Apartment", "name": "Квартира у Австрийской площади", "description": "Самая большая квартира: две спальни, гостиная со столом на шестерых и два санузла.", "floorSize": {"@type": "QuantitativeValue", "value": 71, "unitCode": "MTK"}, "occupancy": {"@type": "QuantitativeValue", "maxValue": 6}, "address": {"@type": "PostalAddress", "addressLocality": "Санкт-Петербург", "streetAddress": "улица Мира", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 59.9607, "longitude": 30.315}}</script>
 </head>
 <body>
@@ -68,7 +68,7 @@
 </div>
 <aside class="booking" aria-label="Бронирование">
 <p class="booking-price">от 10 600 ₽<small>за ночь в будни, 13 200 ₽ в выходные</small></p>
-<form class="booking-form" data-booking data-name="Квартира у Австрийской площади" data-price="10600" data-weekend="13200" data-min="2" data-deposit="3000" novalidate>
+<form class="booking-form" id="bron" data-booking data-name="Квартира у Австрийской площади" data-price="10600" data-weekend="13200" data-min="2" data-deposit="3000" novalidate>
 <div class="field"><label for="b-in">Заезд</label><input id="b-in" name="in" type="date" required></div>
 <div class="field"><label for="b-out">Выезд</label><input id="b-out" name="out" type="date" required></div>
 <div class="field field-wide"><label for="b-g">Гости</label><select id="b-g" name="g"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></div>
@@ -93,7 +93,12 @@
 <p>Здесь будут телефон, мессенджеры и реквизиты владельца квартир.</p>
 </div>
 </footer>
-<script src="../assets/app.js?v=292fc74a" defer></script>
+<nav class="bottom-bar" aria-label="Быстрые действия">
+<a href="../index.html#kvartiry"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h14V10"/></svg>Квартиры</a>
+<a class="bottom-bar-main" href="#bron"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Даты</a>
+<button type="button" data-chat-open><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.5-4A8 8 0 1 1 9 19.5z"/></svg>Помощник</button>
+</nav>
+<script src="../assets/app.js?v=4893074e" defer></script>
 <script src="../assets/chat.js?v=47f92ba4" defer data-root="../" data-data="assets/flats.json?v=7e2017c2" data-flat="kvartira-u-avstriyskoy-ploshchadi"></script>
 </body>
 </html>

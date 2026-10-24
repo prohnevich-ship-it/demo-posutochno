@@ -290,4 +290,12 @@
       else dialog.setAttribute("open", "");
     });
   }
+
+  // Кнопки «Помощник» / «Спросить помощника» открывают чат
+  document.addEventListener("click", function (event) {
+    var trigger = event.target.closest("[data-chat-open]");
+    if (!trigger) return;
+    var launcher = document.querySelector(".chat-launcher");
+    if (launcher) launcher.click();
+  });
 })();
