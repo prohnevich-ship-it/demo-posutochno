@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Апартаменты посуточно в Санкт-Петербурге — демо</title>
+<meta name="description" content="Демо-сайт: 10 квартир посуточно в центре Санкт-Петербурга. Бесконтактное заселение, на связи 24/7.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="demo-bar">Демо-версия сайта: фото, цены и отзывы — примеры для показа клиентам</div>
+
+<header class="header">
+  <div class="container header__inner">
+    <a href="#top" class="logo">[Название]<span>апартаменты в Петербурге</span></a>
+    <nav class="nav" aria-label="Основное меню">
+      <a href="#apartments">Квартиры</a>
+      <a href="#offers">Акции</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#rules">Условия</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <div class="header__actions">
+      <a href="tel:+70000000000" class="phone">+7 [000] 000-00-00</a>
+      <a href="#contacts" class="btn btn--outline">Написать</a>
+      <a href="#booking" class="btn btn--accent">Проверить даты</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="top" class="hero">
+  <div class="container hero__inner">
+    <p class="hero__note">[Фото или короткое видео на весь экран: гость заходит в квартиру, включает свет, вид из окна]</p>
+    <h1>Апартаменты посуточно в Санкт-Петербурге</h1>
+    <p class="hero__lead">10 квартир в центре: заселение без ожидания, чисто как в отеле, на связи 24/7</p>
+    <form id="booking" class="booking">
+      <label>Заезд<input type="date" name="checkin" required></label>
+      <label>Выезд<input type="date" name="checkout" required></label>
+      <label>Гости
+        <select name="guests">
+          <option>2 взрослых</option>
+          <option>1 взрослый</option>
+          <option>Семья с детьми</option>
+          <option>Компания до 6 человек</option>
+        </select>
+      </label>
+      <button type="submit" class="btn btn--accent btn--lg">Проверить цены</button>
+      <p class="booking__error" role="alert" hidden></p>
+    </form>
+    <p class="hero__alt">Удобнее в мессенджере? <a href="#contacts">Напишите в WhatsApp или Telegram</a> — ответим за [15] минут</p>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="container stats__grid">
+    <div><strong>10</strong><span>квартир в центре</span></div>
+    <div><strong>[4,9]</strong><span>средний рейтинг на Авито</span></div>
+    <div><strong>[1 500]</strong><span>гостей уже у нас жили</span></div>
+    <div><strong>24/7</strong><span>на связи в мессенджерах</span></div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <h2>Почему у нас удобно</h2>
+    <div class="features">
+      <div class="feature">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l2 2M14 9l2 2"/></svg>
+        <h3>Бесконтактное заселение</h3>
+        <p>Код от замка придёт в мессенджер в день заезда</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1"/></svg>
+        <h3>Быстрый Wi-Fi</h3>
+        <p>И рабочее место — удобно в командировке</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg>
+        <h3>Отчётные документы</h3>
+        <p>Для командировки — по запросу</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg>
+        <h3>Чисто как в отеле</h3>
+        <p>Свежее бельё, полотенца и косметика</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+        <h3>Рядом с метро</h3>
+        <p>До станции — [5–10] минут пешком</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="apartments" class="section">
+  <div class="container">
+    <div class="section__head">
+      <h2>Выберите квартиру</h2>
+      <div class="filters" role="group" aria-label="Фильтр квартир">
+        <button type="button" class="chip is-active" data-filter="all">Все</button>
+        <button type="button" class="chip" data-filter="studio">Студии</button>
+        <button type="button" class="chip" data-filter="family">Для семьи</button>
+        <button type="button" class="chip" data-filter="view">С видом</button>
+      </div>
+    </div>
+    <div class="cards">
+      <article class="card" data-tags="studio">
+        <div class="photo">[Фото: светлая студия, кровать и окно]</div>
+        <div class="card__body">
+          <h3>Студия у Невского проспекта</h3>
+          <div class="card__specs"><span>[26] м²</span><span>до [2] гостей</span><span>1 двуспальная</span></div>
+          <div class="card__foot"><span>от <strong>[0 000] ₽</strong> / сутки</span><a href="#booking" class="btn btn--accent">Даты</a></div>
+        </div>
+      </article>
+      <article class="card" data-tags="view family">
+        <div class="photo">[Фото: вид из окна на воду]</div>
+        <div class="card__body">
+          <h3>Квартира с видом на канал</h3>
+          <div class="card__specs"><span>[42] м²</span><span>до [4] гостей</span><span>2 кровати + диван</span></div>
+          <div class="card__foot"><span>от <strong>[0 000] ₽</strong> / сутки</span><a href="#booking" class="btn btn--accent">Даты</a></div>
+        </div>
+      </article>
+      <article class="card" data-tags="family">
+        <div class="photo">[Фото: гостиная с диваном]</div>
+        <div class="card__body">
+          <h3>Апартаменты для семьи у метро</h3>
+          <div class="card__specs"><span>[55] м²</span><span>до [5] гостей</span><span>2 спальни</span></div>
+          <div class="card__foot"><span>от <strong>[0 000] ₽</strong> / сутки</span><a href="#booking" class="btn btn--accent">Даты</a></div>
+        </div>
+      </article>
+      <article class="card" data-tags="studio">
+        <div class="photo">[Фото: стол у окна, ноутбук]</div>
+        <div class="card__body">
+          <h3>Студия с рабочим местом</h3>
+          <div class="card__specs"><span>[24] м²</span><span>до [2] гостей</span><span>1 двуспальная</span></div>
+          <div class="card__foot"><span>от <strong>[0 000] ₽</strong> / сутки</span><a href="#booking" class="btn btn--accent">Даты</a></div>
+        </div>
+      </article>
+      <article class="card" data-tags="view">
+        <div class="photo">[Фото: балкон с видом на крыши]</div>
+        <div class="card__body">
+          <h3>Мансарда с балконом</h3>
+          <div class="card__specs"><span>[38] м²</span><span>до [3] гостей</span><span>1 двуспальная + диван</span></div>
+          <div class="card__foot"><span>от <strong>[0 000] ₽</strong> / сутки</span><a href="#booking" class="btn btn--accent">Даты</a></div>
+        </div>
+      </article>
+      <article class="card" data-tags="family">
+        <div class="photo">[Фото: высокие потолки, лепнина]</div>
+        <div class="card__body">
+          <h3>Квартира в историческом доме</h3>
+          <div class="card__specs"><span>[60] м²</span><span>до [6] гостей</span><span>3 кровати</span></div>
+          <div class="card__foot"><span>от <strong>[0 000] ₽</strong> / сутки</span><a href="#booking" class="btn btn--accent">Даты</a></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="offers" class="section section--dark">
+  <div class="container">
+    <h2>Акции</h2>
+    <div class="offers">
+      <div class="offer">
+        <span class="offer__big">−[10]%</span>
+        <h3>От 3 ночей</h3>
+        <p>Скидка на весь срок проживания. Действует до [30 ноября]</p>
+        <a href="#booking">Забронировать по акции</a>
+      </div>
+      <div class="offer">
+        <span class="offer__big">−[15]%</span>
+        <h3>Раннее бронирование</h3>
+        <p>Бронируйте за [30] дней до заезда</p>
+        <a href="#booking">Забронировать по акции</a>
+      </div>
+      <div class="offer">
+        <span class="offer__big">Выгоднее</span>
+        <h3>Прямое бронирование</h3>
+        <p>На сайте и в мессенджере — без комиссии площадок</p>
+        <a href="#contacts">Написать нам</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <h2>Для какой поездки</h2>
+    <div class="occasions">
+      <div class="occasion"><div class="photo photo--sm">[Фото: рабочее место у окна]</div><div class="occasion__body"><h3>Командировка</h3><p>Wi-Fi, стол, документы для отчёта</p></div></div>
+      <div class="occasion"><div class="photo photo--sm">[Фото: вечер, вид на город]</div><div class="occasion__body"><h3>Романтические выходные</h3><p>Квартиры с видом и поздний выезд</p></div></div>
+      <div class="occasion"><div class="photo photo--sm">[Фото: семья в гостиной]</div><div class="occasion__body"><h3>С детьми</h3><p>Детская кроватка и стульчик по запросу</p></div></div>
+      <div class="occasion"><div class="photo photo--sm">[Фото: гость с собакой]</div><div class="occasion__body"><h3>С питомцем</h3><p>[Условия: какие квартиры и доплата]</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" class="section">
+  <div class="container">
+    <div class="section__head">
+      <h2>Отзывы гостей</h2>
+      <a href="#reviews" class="link-strong">Все отзывы на Авито</a>
+    </div>
+    <div class="reviews">
+      <figure class="review">
+        <div class="review__top"><span class="stars" aria-label="Оценка 5 из 5">★★★★★</span><span class="tag">Авито</span></div>
+        <blockquote>[Текст отзыва гостя: 2–3 предложения о чистоте, заселении, виде]</blockquote>
+        <figcaption>[Имя], [месяц] 2026</figcaption>
+      </figure>
+      <figure class="review">
+        <div class="review__top"><span class="stars" aria-label="Оценка 5 из 5">★★★★★</span><span class="tag">Суточно</span></div>
+        <blockquote>[Текст отзыва гостя: 2–3 предложения о чистоте, заселении, виде]</blockquote>
+        <figcaption>[Имя], [месяц] 2026</figcaption>
+      </figure>
+      <figure class="review">
+        <div class="review__top"><span class="stars" aria-label="Оценка 5 из 5">★★★★★</span><span class="tag">Авито</span></div>
+        <blockquote>[Текст отзыва гостя: 2–3 предложения о чистоте, заселении, виде]</blockquote>
+        <figcaption>[Имя], [месяц] 2026</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="rules" class="section section--alt">
+  <div class="container two-cols">
+    <div class="stack">
+      <h2>Как добраться</h2>
+      <div class="photo photo--map">[Яндекс Карта: отмечены все 10 квартир]</div>
+      <p class="muted">От Московского вокзала — [15] минут, от аэропорта Пулково — [40] минут. Пришлём схему проезда в мессенджер.</p>
+    </div>
+    <div class="stack">
+      <h2>Условия</h2>
+      <dl class="rules">
+        <dt>Заезд</dt><dd>с [14:00]</dd>
+        <dt>Выезд</dt><dd>до [12:00]</dd>
+        <dt>Залог</dt><dd>[сумма], возвращаем при выезде</dd>
+        <dt>Дети</dt><dd>[можно, кроватка по запросу]</dd>
+        <dt>Питомцы</dt><dd>[по согласованию]</dd>
+        <dt>Оплата</dt><dd>[предоплата и способы оплаты]</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="contacts" class="section cta">
+  <div class="container cta__inner">
+    <h2>Не нашли свои даты? Подберём квартиру за [15] минут</h2>
+    <div class="cta__buttons">
+      <a href="https://wa.me/70000000000" class="btn btn--accent btn--lg" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="https://t.me/" class="btn btn--outline btn--lg" target="_blank" rel="noopener">Telegram</a>
+      <a href="#contacts" class="btn btn--outline btn--lg">MAX</a>
+    </div>
+    <p class="muted">Акции и свободные даты — первыми в нашем <a href="https://t.me/" class="link-strong" target="_blank" rel="noopener">Telegram-канале</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div><span class="footer__logo">[Название]</span><span>Апартаменты посуточно в Санкт-Петербурге</span></div>
+    <div><span class="footer__title">Контакты</span><span>+7 [000] 000-00-00</span><span>WhatsApp · Telegram · MAX</span></div>
+    <div><span class="footer__title">Документы</span><a href="#rules">Правила проживания</a><a href="#top">Политика конфиденциальности</a></div>
+    <div><span class="footer__title">Реквизиты</span><span>[ИП / самозанятый, ИНН]</span></div>
+  </div>
+</footer>
+
+<nav class="bottom-bar" aria-label="Быстрые действия">
+  <a href="#apartments">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h14V10"/></svg>Квартиры</a>
+  <a href="#booking" class="bottom-bar__main">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Даты</a>
+  <a href="https://wa.me/70000000000" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.5-4A8 8 0 1 1 9 19.5z"/></svg>Написать</a>
+</nav>
+
+<script src="script.js"></script>
+</body>
+</html>
