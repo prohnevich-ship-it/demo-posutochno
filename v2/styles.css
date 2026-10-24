@@ -36,6 +36,7 @@ p { margin: 0; }
 
 /* Плашка демо */
 .demo-bar { background: var(--navy); color: var(--white); text-align: center; font-size: 13px; padding: 8px 16px; }
+.demo-bar a { color: var(--white); font-weight: 700; }
 
 /* Шапка */
 .header { position: sticky; top: 0; z-index: 20; background: var(--white); border-bottom: 1px solid var(--line); }
