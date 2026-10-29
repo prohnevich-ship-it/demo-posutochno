@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Онлайн-бронирование — Десять парадных</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#17283a">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&amp;family=Golos+Text:wght@400;500;600&amp;display=swap">
+<link rel="stylesheet" href="assets/style.css?v=60a13c42">
+<style>
+  .booking-page { padding-top: 24px; padding-bottom: 48px; }
+  .booking-page h1 { margin-bottom: 8px; }
+  .booking-lead { color: var(--ink-soft); max-width: 680px; margin-bottom: 24px; }
+  .booking-block { background: var(--paper); border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+  .booking-block h2 { margin: 0 0 12px; }
+  .test-note { border-left: 4px solid var(--facade); background: #fff8df; padding: 12px 16px; border-radius: 8px; margin-bottom: 24px; }
+  @media (max-width: 600px) { .booking-block { padding: 12px; } }
+</style>
+</head>
+<body>
+<p class="demo-note">Демонстрационный сайт: квартиры, цены и отзывы вымышлены. <a href="index.html#owners">Хочу такой сайт</a></p>
+<header class="wrap site-header">
+<a class="brand" href="index.html"><svg viewBox="0 0 22 28" aria-hidden="true" focusable="false"><path d="M1 27V11a10 10 0 0 1 20 0v16" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6.5 27V12a4.5 4.5 0 0 1 9 0v15z" fill="#f2c230" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Десять парадных</a>
+<nav class="site-nav" aria-label="Основное меню">
+<a href="index.html#kvartiry">Квартиры</a>
+<a href="index.html#zaselenie">Заселение</a>
+<a href="pravila.html">Правила и вопросы</a>
+</nav>
+</header>
+<main class="wrap booking-page">
+<h1>Онлайн-бронирование</h1>
+<p class="booking-lead">Выберите даты и квартиру — бронь сразу попадает в систему управления, а занятые даты закрываются на всех площадках.</p>
+<p class="test-note"><strong>Тестовая страница.</strong> Здесь подключён модуль бронирования RealtyCalendar. Не бронируйте здесь по-настоящему.</p>
+
+<section class="booking-block" aria-labelledby="h-search">
+<h2 id="h-search">Подбор по датам</h2>
+<div id="hr-widget" data-instance-id="search"></div>
+</section>
+
+<section class="booking-block" aria-labelledby="h-list">
+<h2 id="h-list">Все квартиры</h2>
+<div id="hr-widget" data-instance-id="list"></div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="wrap footer-grid">
+<p>«Десять парадных» — вымышленная компания. Сайт показывает, как может выглядеть сайт с онлайн-бронированием для посуточной аренды.</p>
+<p>Здесь будут телефон, мессенджеры и реквизиты владельца квартир.</p>
+</div>
+</footer>
+<script type="module" src="https://homereserve.ru/widget.js"></script>
+<script type="module">
+  const opts = { token: "dLFJhx0EVM" };
+  function start() {
+    window.homereserve.initWidgetSearch({ ...opts, instance_id: "search" });
+    window.homereserve.initWidgetList({ ...opts, instance_id: "list" });
+  }
+  if (window.homereserve) { start(); }
+  else {
+    let tries = 0;
+    const t = setInterval(() => {
+      if (window.homereserve || ++tries > 50) { clearInterval(t); if (window.homereserve) start(); }
+    }, 100);
+  }
+</script>
+</body>
+</html>
